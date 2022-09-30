@@ -1,92 +1,74 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-    generateBtn.onclick = generatePassword;
+    // generateBtn.onclick = generatePassword;
+    // console.log(generateBtn)
 
-var lowercaseChar = ["a","b","c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var uppercaseChar = ["A","B","C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var numericChar = ["0", "1","2","3","4","5","6","7","8","9"];
-var specialChar = [" ", "\"","!","#","$","%","&","\'","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","\\","]","^","_","`","{","|","}","~"];
-
-var chars = [];
-var randomPassword = "";
-
-function generatePassword() {
-    var passwordLengthDefine = prompt("How many characters for your password? (between 8 - 128)");
-    var passwordLength = document.write(passwordLengthDefine.length);
-    var lowercase = confirm("including lowercase?");
-    var uppercase = confirm("including uppercase?");
-    var numeric = confirm("including numeric?");
-    var special = confirm("including special characters?");
-
+    var userChoice = [];
+    var randomPassword = "";
+    var lowercase = "";
+    var uppercase ="";
+    var numeric = "";
+    var special = "";
+    var lowercaseChar = ["a","b","c","d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var uppercaseChar = ["A","B","C","D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+    var numericChar = ["0", "1","2","3","4","5","6","7","8","9"];
+    var specialChar = [" ", "\"","!","#","$","%","&","\'","(",")","*","+",",","-",".","/",":",";","<","=",">","?","@","[","\\","]","^","_","`","{","|","}","~"];
     
-    while (passwordLength <128 || passwordLength >8) {
-      function charSelect(){
-       if (lowercase === true && uppercase === false && numeric === false && special === false) {
-          chars = chars.concat(lowercaseChar);
-        } else if (lowercase === true && uppercase === true && numeric === false && special === false) {
-          chars = chars.concat(lowercaseChar).concat(uppercase);
-        } else if (lowercase === true && uppercase === true && numeric === true && special === false) {
-          chars = chars.concat(lowercaseChar).concat(uppercaseChar).concat(numericChar);
-        } else if (lowercase === true && uppercase === true && numeric === true && special === true) {
-          chars = chars.concat(lowercaseChar).concat(uppercaseChar).concat(numericChar).concat(specialChar);
-
-        } else if (lowercase === false && uppercase === true && numeric === false && special === false) {
-          chars = chars.concat(uppercaseChar);
-        } else if (lowercase === false && uppercase === true && numeric === true && special === false) {
-          chars = chars.concat(uppercaseChar).concat(numericChar);
-        } else if (lowercase === false && uppercase === true && numeric === true && special === true) {
-          chars = chars.concat(specialChar).concat(uppercaseChar).concat(numericChar);
-
-        } else if (lowercase === false && uppercase === false && numeric === true && special === false) {
-          chars = chars.concat(numericChar);
-        } else if (lowercase === false && uppercase === false && numeric === true && special === true) {
-          chars = chars.concat(specialChar).concat(numericChar);
-
-        } else if (lowercase === false && uppercase === false && numeric === false && special === true) {
-          chars = chars.concat(specialChar);
-        } 
-        return chars;
-        
-      } 
+    
+    function passwordCondition() {
+      var passwordLength = prompt("How many characters for your password? (between 8 - 128)");
+          if (passwordLength > 128 || passwordLength <8) {
+            alert ("Invalid Entry");
+          } else {
+            lowercase = confirm("including lowercase?");
+            uppercase = confirm("including uppercase?");
+            numeric = confirm("including numeric?");
+            special = confirm("including special characters?");
+            charSelect(lowercase, uppercase, numeric, special, passwordLength);
+          }
     }
-    
-       while (passwordLength > 128 || passwordLength < 8) {
-          if(confirm("Invalid entry, try again?") === ture) {
-            charSelect();
-          }
-          else {
-            break;
-          }
-        }
-        randomPassword = chars.charAt(Math.floor(Math.random() * passwordLength));   
-} 
-
-
-    // var tempPassword = [];
-    // if (passwordLength>128 || passwordLength <8){
-    //   confirm("this is a vilid entry");
-    // } else {
-    // if (lowercase === true) {
-    //   tempPassword = tempPassword.concat(lowercaseChar);
-    // } else if (uppercase === true) {
-    //   tempPassword = tempPassword.concat(uppercaseChar);
-    // } else if (numeric === true) {
-    //   tempPassword = tempPassword.concat(numericChar);
-    // } else if (special === true) {
-    //   tempPassword = tempPassword.concat(specialChar);
-    // }
-    // return tempPassword;
 
 
 
+    function charSelect(lowercaseChoice, uppercaseChoice, numericChoice, specialChoice, passwordLength){    
+          var choiceArr = [];
+          if (lowercaseChoice) {
+              choiceArr += choiceArr.concat(lowercaseChar);
+          } else if (uppercaseChoice) {
+              choiceArr += choiceArr.concat(uppercaseChar);
+          } else if (numericChoice) {
+              choiceArr += choiceArr.concat(numericChar);
+          } else if (specialChoice) {
+              choiceArr += choiceArr.concat(specialChar);
+          } 
+          console.log(choiceArr)
+}
+   
+function generatePassword() {
+    // randomPassword = (Math.floor(Math.random() * userChoice-1));
+    // get the array of all user choice char 
+     var finalArr = charSelect();
+    // write a loop to pick a char with a random index from the user choice arr.
+    // push each char to the final array
+    for (var i = 0; i < finalArr.length; i++) {
+        var a = choiceArr[(Math.floor(Math.random() * finalArr.length-1))];
+        randomPassword = randomPassword.push(a);
+    }
+    // display the password from the array, inside of the div
+    console.log(randomPassword)
+    var randomPassword = document.querySelector("#password");
+}
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordCondition();
+  // var password = generatePassword();
 
+  
+  // passwordText.value = randomPassword;
+
+  // entryValidation();
 
 }
 

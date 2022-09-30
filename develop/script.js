@@ -16,38 +16,31 @@ var generateBtn = document.querySelector("#generate");
     
     
     function passwordCondition() {
+      var choiceArr = [];
       var passwordLength = prompt("How many characters for your password? (between 8 - 128)");
-          if (passwordLength > 128 || passwordLength <8) {
-            alert ("Invalid Entry");
-          } else {
-            lowercase = confirm("including lowercase?");
-            uppercase = confirm("including uppercase?");
-            numeric = confirm("including numeric?");
-            special = confirm("including special characters?");
-            charSelect(lowercase, uppercase, numeric, special, passwordLength);
-          }
+      if(isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+        alert("Invalid Entry!");
+        return false;
+      }
+      if (confirm("including lowercase?")) {
+        choiceArr = choiceArr.concat(lowercaseChar);
+      } 
+      if (confirm("including uppercase?")) {
+        choiceArr = choiceArr.concat(uppercaseChar);
+      } 
+      if (confirm("including numeric?")) {
+        choiceArr = choiceArr.concat(numericChar);
+      } 
+      if (confirm("including Special Characters?")) {
+        choiceArr = choiceArr.concat(specialChar);
+      }
+      return choiceArr;
     }
 
-
-
-    function charSelect(lowercaseChoice, uppercaseChoice, numericChoice, specialChoice, passwordLength){    
-          var choiceArr = [];
-          if (lowercaseChoice) {
-              choiceArr += choiceArr.concat(lowercaseChar);
-          } else if (uppercaseChoice) {
-              choiceArr += choiceArr.concat(uppercaseChar);
-          } else if (numericChoice) {
-              choiceArr += choiceArr.concat(numericChar);
-          } else if (specialChoice) {
-              choiceArr += choiceArr.concat(specialChar);
-          } 
-          console.log(choiceArr)
-}
-   
 function generatePassword() {
     // randomPassword = (Math.floor(Math.random() * userChoice-1));
     // get the array of all user choice char 
-     var finalArr = charSelect();
+    
     // write a loop to pick a char with a random index from the user choice arr.
     // push each char to the final array
     for (var i = 0; i < finalArr.length; i++) {

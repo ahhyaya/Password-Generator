@@ -26,6 +26,7 @@
 
 ![feature1](./assets/images/7.png)
 
+![feature1](./assets/images/8.png)
 
 ---
 ## Project Status

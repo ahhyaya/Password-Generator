@@ -1,8 +1,10 @@
+
+
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
     var userChoice = [];
-    var randomPassword = "";
+    // var randomPassword = "";
     var lowercase = "";
     var uppercase ="";
     var numeric = "";
@@ -16,6 +18,7 @@ var generateBtn = document.querySelector("#generate");
 
     function passwordCondition() {
       
+    
       passwordLength = prompt("How many characters for your password? (between 8 - 128)");
       if(isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
         alert("Invalid Entry!");
@@ -37,6 +40,7 @@ var generateBtn = document.querySelector("#generate");
     }
 
 function generatePassword() {
+      var randomPassword = "";
     // get the array of all user choice char 
     // var finalArr = generatePassword(choiceArr);
     // write a loop to pick a char with a random index from the user choice arr.
@@ -45,17 +49,22 @@ function generatePassword() {
         var a = Math.floor(Math.random() * choiceArr.length);
         randomPassword = randomPassword + choiceArr[a];
     }
+
+    choiceArr = [];
     return randomPassword;
 }
 
 // Write password to the #password input
 function writePassword() {
-
   passwordCondition();
-
+  if(isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
+    return;
+  }
   var randomPassword = generatePassword();
   var passwordText = document.querySelector("#password");
+  passwordText.value = "";
   passwordText.value = randomPassword;
+  
 }
 
 // Add event listener to generate button
